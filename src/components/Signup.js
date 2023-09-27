@@ -1,9 +1,10 @@
-// src/components/Signup.js
 import React, { useState } from 'react';
 
 function Signup() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null); // State to hold error messages
+  const [message, setMessage] = useState(null); // State to hold error messages
 
   const handleSignup = async () => {
     try {
@@ -17,19 +18,33 @@ function Signup() {
 
       if (response.ok) {
         console.log('Signup successful');
+        setError(null);
+        setMessage('Successful now login ')
       } else {
-       
-        console.error('Signup failed');
+        // Handle registration errors
+        const data = await response.json();
+        if (data.error) {
+          setMessage(null)
+          setError(data.error); // Display the error message from the server
+        } else {
+          setMessage(null)
+          setError('Registration failed. Please try again.');
+        }
       }
     } catch (error) {
       console.error('Signup failed', error);
+      // Handle network or server errors
+      setError('An error occurred while signing up. Please try again later.');
     }
   };
+
 
   return (
     <div className="container">
       <h2>Signup</h2>
       <form>
+        {error && <div className="alert alert-danger">{error}</div>} {/* Display error messages */}
+        {message && <div className="alert alert-success">{message}</div>} {/* Display error messages */}
         <div className="mb-3">
           <label htmlFor="username" className="form-label">
             Username

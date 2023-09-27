@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function Login({ setLoggedIn, setUsername }) {
   const [username, setUsernameState] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null); // State to hold error messages
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -24,10 +25,13 @@ function Login({ setLoggedIn, setUsername }) {
         setUsername(data.name);
         navigate('/create-todo');
       } else {
-        console.error('Login failed');
+        // Handle incorrect login credentials
+        setError('Invalid username or password. Please try again.');
       }
     } catch (error) {
       console.error('Login failed', error);
+      // Handle network or server errors
+      setError('An error occurred while logging in. Please try again later.');
     }
   };
 
@@ -35,6 +39,7 @@ function Login({ setLoggedIn, setUsername }) {
     <div className="container">
       <h2>Login</h2>
       <form>
+        {error && <div className="alert alert-danger">{error}</div>} 
         <div className="mb-3">
           <label htmlFor="username" className="form-label">
             Username

@@ -12,6 +12,7 @@ function Home() {
       <div className="card-header">Todo App</div>
       <div className="card-body m-5">
         <p>Please start the backend server before starting this application.</p>
+        <p> Backend is not hosted you have to manually use this on your local server.</p>
       </div>
     </div>
   );
