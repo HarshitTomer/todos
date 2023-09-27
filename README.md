@@ -6,6 +6,8 @@ To get started, clone this repository to your local machine using the following 
 # Clone the repository
 git clone https://github.com/HarshitTomer/todos
 
+you can also view the live verson of frontend hosted on this link
+https://todoharshit.netlify.app/
 # Navigate to the project directory
 cd todos
 
