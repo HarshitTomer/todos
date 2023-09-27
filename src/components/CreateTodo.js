@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
 
 function CreateTodo() {
   const [newTodo, setNewTodo] = useState('');
   const [todos, setTodos] = useState([]);
   const userId = localStorage.getItem('userId'); // Get the user ID from local storage or another source
+  
 
   const fetchTodos = async () => {
     try {
@@ -20,9 +22,10 @@ function CreateTodo() {
       console.error('Failed to fetch todos', error);
     }
   };
-
+  const fetchTodosRef = useRef(fetchTodos);
   useEffect(() => {
-    fetchTodos();
+    // Use the function from the ref
+    fetchTodosRef.current();
   }, [userId]);
   
 

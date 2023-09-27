@@ -1,11 +1,10 @@
-// src/components/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
-  const [username, setUsername] = useState('');
+function Login({ setLoggedIn, setUsername }) {
+  const [username, setUsernameState] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Use the useNavigate hook for navigation
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -16,11 +15,13 @@ function Login() {
         },
         body: JSON.stringify({ username, password }),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem('userId', data.id); // Save user ID
-        localStorage.setItem('username', data.name); // Save username
+        localStorage.setItem('userId', data.id);
+        localStorage.setItem('username', data.name);
+        setLoggedIn(true);
+        setUsername(data.name);
         navigate('/create-todo');
       } else {
         console.error('Login failed');
@@ -29,7 +30,6 @@ function Login() {
       console.error('Login failed', error);
     }
   };
-  
 
   return (
     <div className="container">
@@ -44,7 +44,7 @@ function Login() {
             className="form-control"
             id="username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsernameState(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -59,11 +59,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleLogin}
-        >
+        <button type="button" className="btn btn-primary" onClick={handleLogin}>
           Login
         </button>
       </form>
