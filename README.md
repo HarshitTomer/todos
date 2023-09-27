@@ -41,6 +41,5 @@ This README provides an overview of the authentication flow and security measure
 1. Users enter their registered username and password.
 2. The application sends a POST request to the server with the username and password in JSON format.
 3. The server compares the provided password with the stored for the corresponding username.
-
-6. If login fails (e.g., due to incorrect credentials), the server sends an error response, and the client displays an error message to the user.
+4. If login fails (e.g., due to incorrect credentials), the server sends an error response, and the client displays an error message to the user.
 
